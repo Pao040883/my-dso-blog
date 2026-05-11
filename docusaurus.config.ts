@@ -9,8 +9,8 @@ dotenvconfig();
 const blogEnabled = Boolean(process.env.BLOG_ENABLED === 'true')
 
 const config: Config = {
-  title: 'DSO Live Demo Docs',
-  tagline: 'Dinosaurs are cool',
+  title: 'Patrick Offermanns – DevSecOps Journey',
+  tagline: 'Build. Break. Secure. Learn.',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -43,10 +43,8 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/spmse/dev-blog-template',
+            'https://github.com/Pao040883/my-dso-blog/tree/main/',
         },
         blog: blogEnabled ? 
           {
@@ -55,10 +53,8 @@ const config: Config = {
               type: ['rss', 'atom'],
               xslt: true,
             },
-            // Please change this to your repo.
-            // Remove this to remove the "edit this page" links.
             editUrl:
-              'https://github.com/spmse/dev-blog-template',
+              'https://github.com/Pao040883/my-dso-blog/tree/main/',
             // Useful options to enforce blogging best practices
             onInlineTags: 'warn',
             onInlineAuthors: 'warn',
@@ -76,9 +72,9 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'My Site',
+      title: 'DevSecOps Journey',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'DevSecOps Journey Logo',
         src: 'img/logo.svg',
       },
       items: [
@@ -89,8 +85,8 @@ const config: Config = {
           label: 'Docs',
         },
         {
-          href: 'https://github.com/spmse/dev-blog-template',
-          label: 'Github',
+          href: 'https://github.com/Pao040883/my-dso-blog',
+          label: 'GitHub',
           position: 'right',
         },
       ],
@@ -134,7 +130,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Sven Patrick Meier (spmse). Built with Docusaurus and 💚.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Patrick Offermanns. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
@@ -158,13 +154,9 @@ const config: Config = {
 
 
 if (blogEnabled) {
-  (config.themeConfig.navbar as any).items.push({to: '/blog', label: 'Blog', position: 'left'});
-  (
-    config.themeConfig.footer as any
-  ).links[2].items.push({
-    to: '/blog',
-    label: 'Blog',
-  });
+  const themeConfig = config.themeConfig as any;
+  themeConfig.navbar.items.push({to: '/blog', label: 'Blog', position: 'left'});
+  themeConfig.footer.links[2].items.push({to: '/blog', label: 'Blog'});
 }
 
 export default config;
