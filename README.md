@@ -1,105 +1,109 @@
-# My Developer Blog
+# my-dso-blog
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+> Learning journal, knowledge base, and project portfolio from my DevSecOps training at Developer Akademie.
 
-## Repository Description
+🌐 **Live:** https://pao040883.github.io/my-dso-blog/
 
-This repository hosts a developer blog built with Docusaurus. It includes tools and scripts for creating, managing, and deploying static web content. The software supports rapid local development, customizable theming, and seamless deployment to platforms like GitHub Pages or NGINX.
+Built with [Docusaurus](https://docusaurus.io/) and deployed to GitHub Pages on every push to `main`.
 
-## Table of Contents
+## What this site is
 
-- [My Developer Blog](#my-developer-blog)
-  - [Repository Description](#repository-description)
-  - [Table of Contents](#table-of-contents)
-  - [Quickstart](#quickstart)
-    - [Prerequisites](#prerequisites)
-  - [Repository Structure](#repository-structure)
-  - [Deployment](#deployment)
-    - [Deploy to Github Pages](#deploy-to-github-pages)
-    - [Deploying using NGINX](#deploying-using-nginx)
-    - [Contributing](#contributing)
+The site has three sections that I keep filling as the training progresses:
 
-## Quickstart
+- **Blog** — chronological journal entries: what I worked on each day, what worked, what didn't.
+- **Docs › Knowledge base** — reference notes I want to look up later, grouped by topic (containers, DevOps, git, linux, …).
+- **Docs › Projects** — portfolio entries for the larger projects of the training, with descriptions and links.
 
-### Prerequisites
+## Repository layout
 
-- [Node.js](https://nodejs.org/) (v16 or later recommended)
-- [pnpm](https://pnpm.io/) (package manager for faster and more efficient dependency handling)
-- [Docker](https://www.docker.com/products/docker-desktop) (only required if [deploying using NGINX](#deploying-using-nginx))
+| Path | Purpose |
+|---|---|
+| `blog/` | Blog posts. Filenames follow `YYYY-MM-DD-slug.md`. |
+| `blog/authors.yml` | Author profiles referenced from post frontmatter. |
+| `blog/tags.yml` | Tag definitions and descriptions. |
+| `docs/knowledge-base/` | Categorised reference notes. |
+| `docs/projects/` | Project pages — overview plus one page per project. |
+| `docs/guides/` | How-to docs (Docusaurus basics, deployment, etc.). |
+| `src/components/` | Custom React components used inside docs (e.g. `GithubLinkAdmonition`). |
+| `src/pages/` | Static pages including the home page. |
+| `static/img/` | Logo, favicon, social card. |
+| `sidebars.ts` | Sidebar structure for the docs section. |
+| `docusaurus.config.ts` | Site configuration: title, theme, plugins. |
+| `.github/workflows/` | CI/CD: build + deploy to GitHub Pages. |
+| `example.env` | Committed template for deploy-time variables. |
+| `.env` | Local copy (git-ignored). |
 
-1. Installation
+## Running it locally
 
-   ```
-   $ pnpm install
-   ```
+Prerequisites: [Node.js](https://nodejs.org/) 18 or later, [pnpm](https://pnpm.io/).
 
-2. Local Development
+```bash
+pnpm install
+pnpm start         # dev server with hot reload
+pnpm build         # production build into build/
+pnpm serve         # serve the production build locally
+```
 
-   ```
-   $ pnpm start
-   ```
+Note: the CI workflow uses `npm install --frozen-lockfile` and `npm run build`, so the npm `package-lock.json` is the source of truth for CI builds.
 
-   This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+## Adding new content
 
-3. Build
+### A new blog post
 
-   ```
-   $ pnpm build
-   ```
+Create a file in `blog/` named `YYYY-MM-DD-some-slug.md` with frontmatter:
 
-   This command generates static content into the `build` directory and can be served using any static contents hosting service.
+```yaml
+---
+slug: some-slug
+title: Title shown on the site
+authors: [patrick]
+tags: [setup, docusaurus]
+---
+```
 
-4. Deployment
+Any tags referenced must already exist in `blog/tags.yml`, otherwise the build emits a warning.
 
-   In order to deploy onto Github Pages, ensure that your `docusaurus.config.ts` conforms with the [documentation guidelines](https://docusaurus.io/docs/deployment#deploying-to-github-pages). After that is ensured run the following command to deploy:
+### A new doc page
 
-   ```
-   $ USE_SSH=true pnpm deploy
-   ```
+1. Create a markdown file under the relevant `docs/<area>/` folder.
+2. The sidebar in `sidebars.ts` is auto-generated, so the new page is picked up automatically.
+3. Reorder or rename categories via the `_category_.yaml` file in each folder.
 
-For detailed information about deploying this Docusaurus project, refer to the [Deployment](#deployment) section below.
+### A new tag or author
 
-## Repository Structure
+Define it in `blog/tags.yml` or `blog/authors.yml` before referencing it from a post.
 
-The repository is organized as follows:
+## Configuration
 
-- `blog/`: Contains markdown files for blog posts. Blog-related metadata is automatically picked up by the Docusaurus configuration.
-- `docs/`: Contains markdown files for documentation. These files are referenced in `sidebars.ts` to define the sidebar structure.
-- `src/`: Contains custom React components, CSS, and JavaScript for additional functionality or theming.
-- `static/`: Stores static assets (e.g., images, icons) served directly without processing.
-- `sidebars.ts`: Configures the structure of sidebars in the documentation section.
-- `docusaurus.config.ts`: Main configuration file for customizing and managing Docusaurus behavior.
-- `build/`: Generated after running the `pnpm build` command. Contains the static website files ready for deployment.
+Deploy-time values live in `example.env` (committed) and `.env` (git-ignored). The deploy workflow copies `example.env` to `.env` before building.
 
-New content can be added as follows:
-
-- Add new documentation files to the `docs/` folder.
-- Add new blog posts to the `blog/` folder. No additional configuration is required.
+| Variable | Purpose |
+|---|---|
+| `DEPLOYMENT_URL` | Production host, e.g. `https://pao040883.github.io`. |
+| `BASE_URL` | Path prefix served on that host. For a GitHub project page this must be `/<repo-name>/`. |
+| `GITHUB_ORG`, `GITHUB_PROJECT` | Used by Docusaurus for deploy metadata. |
+| `DEPLOYMENT_BRANCH` | Branch the workflow deploys from. |
+| `BLOG_ENABLED` | Set to `true` to render the blog section in the navbar and routes. |
 
 ## Deployment
 
-### Deploy to Github Pages
+Deployment is fully automated via [.github/workflows/deploy.yaml](.github/workflows/deploy.yaml) and triggered by [main.yml](.github/workflows/main.yml) on every push to `main`:
 
-To deploy using SSH:
+1. **Build Docusaurus** — install dependencies, copy `example.env` to `.env`, run `npm run build`, upload `build/` as a Pages artifact.
+2. **Deploy to GitHub Pages** — publish the artifact to the `github-pages` environment via `actions/deploy-pages@v4`.
 
-```
-$ USE_SSH=true pnpm deploy
-```
+Required GitHub settings (one-time):
+- Settings → Pages → Source: **GitHub Actions**
+- Settings → Actions → General → Workflow permissions: **Read and write**
 
-To deploy without using SSH, run:
+## Workflow conventions
 
-```
-$ GIT_USER=<Your GitHub username> pnpm deploy
-```
+Solo project, but I still follow a feature-branch workflow (it's a requirement of the training and a good habit anyway):
 
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+- Branch off `main` for every change. Branch names follow Conventional Commit prefixes: `chore/…`, `feat/…`, `fix/…`, `docs/…`.
+- Multiple small commits per branch are preferred over one mixed commit; unrelated changes go on separate branches.
+- Open a pull request and merge via the GitHub UI. CI runs on PR creation and on `main`.
 
-### Deploying using NGINX
+## License
 
-To deploy the site using NGINX and Docker, follow this [guide](./docs/guides/deploy-docusaurus-with-docker-and-nginx.md)
-
-### Contributing
-
-Currently, this project does not seek collaborators, but we're open to suggestions regarding enhancements or guides to prepare.
-Open an issue with a detailed description on the change you suggest and elaborate why it's benefitial for the project and vast majority.
-If accepted in the discussion, open a pull request from your fork of this repository to contribute your changes.
+[MIT](./LICENSE)
