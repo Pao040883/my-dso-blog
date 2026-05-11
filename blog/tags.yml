@@ -1,14 +1,14 @@
 setup:
   label: Setup
   permalink: /setup
-  description: Einrichtung von Tools und Projekten
+  description: Setting up tools and projects
 
 docusaurus:
   label: Docusaurus
   permalink: /docusaurus
-  description: Beitraege rund um die Docusaurus-Konfiguration
+  description: Posts about the Docusaurus configuration
 
-ausbildung:
-  label: Ausbildung
-  permalink: /ausbildung
-  description: Tagebucheintraege aus der DevSecOps-Ausbildung
+training:
+  label: Training
+  permalink: /training
+  description: Journal entries from the DevSecOps training
