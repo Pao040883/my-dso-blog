@@ -1,19 +1,14 @@
-facebook:
-  label: Facebook
-  permalink: /facebook
-  description: Facebook tag description
-
-hello:
-  label: Hello
-  permalink: /hello
-  description: Hello tag description
+setup:
+  label: Setup
+  permalink: /setup
+  description: Einrichtung von Tools und Projekten
 
 docusaurus:
   label: Docusaurus
   permalink: /docusaurus
-  description: Docusaurus tag description
+  description: Beitraege rund um die Docusaurus-Konfiguration
 
-hola:
-  label: Hola
-  permalink: /hola
-  description: Hola tag description
+ausbildung:
+  label: Ausbildung
+  permalink: /ausbildung
+  description: Tagebucheintraege aus der DevSecOps-Ausbildung
