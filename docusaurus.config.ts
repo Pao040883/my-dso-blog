@@ -10,7 +10,7 @@ const gitRepositoryUrl = process.env.GIT_REPOSITORY_URL ?? 'https://github.com/P
 
 const config: Config = {
   title: 'Patrick Offermanns – DevSecOps Journey',
-  tagline: 'Build. Break. Secure. Learn.',
+  tagline: 'Patrick Offermanns — DevSecOps Trainee documenting tools, projects and lessons learned',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -119,7 +119,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Patrick Offermanns. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Patrick Offermanns. Built with Docusaurus, extended from the developer-akademie-starter.`,
     },
     prism: {
       theme: prismThemes.github,
