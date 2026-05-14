@@ -7,7 +7,7 @@ sidebar_position: 1
 
 > Setup notes and configuration steps for this project.
 
-This page documents how the Docusaurus learning journal at <https://pao040883.github.io/my-dso-blog/> was set up, starting from the [`spmse/dev-blog-template`](https://github.com/spmse/dev-blog-template) upstream and customising it for personal use.
+This page documents how the Docusaurus learning journal at [pao040883.github.io/my-dso-blog](https://pao040883.github.io/my-dso-blog/) was set up, starting from the [`spmse/dev-blog-template`](https://github.com/spmse/dev-blog-template) upstream and customising it for personal use.
 
 ## Table of contents
 
