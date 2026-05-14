@@ -5,16 +5,16 @@ import {config as dotenvconfig}  from "dotenv";
 
 dotenvconfig();
 
-/* TODO: change to read configuration from environment */
 const blogEnabled = Boolean(process.env.BLOG_ENABLED === 'true')
+const gitRepositoryUrl = process.env.GIT_REPOSITORY_URL ?? 'https://github.com/Pao040883/my-dso-blog'
 
 const config: Config = {
   title: 'Patrick Offermanns – DevSecOps Journey',
-  tagline: 'Build. Break. Secure. Learn.',
+  tagline: 'Patrick Offermanns — DevSecOps Trainee documenting tools, projects and lessons learned',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: process.env.DEPLOYMENT_URL ?? "https://spmse.github.io",
+  url: process.env.DEPLOYMENT_URL ?? "https://pao040883.github.io",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: process.env.BASE_URL ?? "/",
@@ -43,8 +43,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          editUrl:
-            'https://github.com/Pao040883/my-dso-blog/tree/main/',
+          editUrl: `${gitRepositoryUrl}/tree/main/`,
         },
         blog: blogEnabled ? 
           {
@@ -53,8 +52,7 @@ const config: Config = {
               type: ['rss', 'atom'],
               xslt: true,
             },
-            editUrl:
-              'https://github.com/Pao040883/my-dso-blog/tree/main/',
+            editUrl: `${gitRepositoryUrl}/tree/main/`,
             // Useful options to enforce blogging best practices
             onInlineTags: 'warn',
             onInlineAuthors: 'warn',
@@ -101,22 +99,9 @@ const config: Config = {
               label: 'Tutorial',
               to: '/docs/guides/intro',
             },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
+              label: 'Projects',
+              to: '/docs/projects/',
             },
           ],
         },
@@ -125,12 +110,16 @@ const config: Config = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
-            }
+              href: gitRepositoryUrl,
+            },
+            {
+              label: 'Template',
+              href: 'https://github.com/spmse/dev-blog-template',
+            },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Patrick Offermanns. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Patrick Offermanns. Built with Docusaurus, extended from the developer-akademie-starter.`,
     },
     prism: {
       theme: prismThemes.github,
@@ -156,7 +145,7 @@ const config: Config = {
 if (blogEnabled) {
   const themeConfig = config.themeConfig as any;
   themeConfig.navbar.items.push({to: '/blog', label: 'Blog', position: 'left'});
-  themeConfig.footer.links[2].items.push({to: '/blog', label: 'Blog'});
+  themeConfig.footer.links[1].items.push({to: '/blog', label: 'Blog'});
 }
 
 export default config;

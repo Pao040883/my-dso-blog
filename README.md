@@ -82,19 +82,13 @@ Deploy-time values live in `example.env` (committed) and `.env` (git-ignored). T
 | `DEPLOYMENT_URL` | Production host, e.g. `https://pao040883.github.io`. |
 | `BASE_URL` | Path prefix served on that host. For a GitHub project page this must be `/<repo-name>/`. |
 | `GITHUB_ORG`, `GITHUB_PROJECT` | Used by Docusaurus for deploy metadata. |
+| `GIT_REPOSITORY_URL` | Used to derive the `editUrl` for docs and blog pages. |
 | `DEPLOYMENT_BRANCH` | Branch the workflow deploys from. |
 | `BLOG_ENABLED` | Set to `true` to render the blog section in the navbar and routes. |
 
 ## Deployment
 
-Deployment is fully automated via [.github/workflows/deploy.yaml](.github/workflows/deploy.yaml) and triggered by [main.yml](.github/workflows/main.yml) on every push to `main`:
-
-1. **Build Docusaurus** — install dependencies, copy `example.env` to `.env`, run `npm run build`, upload `build/` as a Pages artifact.
-2. **Deploy to GitHub Pages** — publish the artifact to the `github-pages` environment via `actions/deploy-pages@v4`.
-
-Required GitHub settings (one-time):
-- Settings → Pages → Source: **GitHub Actions**
-- Settings → Actions → General → Workflow permissions: **Read and write**
+The site is automatically deployed to GitHub Pages by a prepared GitHub Actions workflow whenever a commit lands on `main`. No manual deploy step is required.
 
 ## Workflow conventions
 
