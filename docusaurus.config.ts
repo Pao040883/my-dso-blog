@@ -43,8 +43,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          editUrl:
-            'https://github.com/Pao040883/my-dso-blog/tree/main/',
+          editUrl: `${gitRepositoryUrl}/tree/main/`,
         },
         blog: blogEnabled ? 
           {
@@ -53,8 +52,7 @@ const config: Config = {
               type: ['rss', 'atom'],
               xslt: true,
             },
-            editUrl:
-              'https://github.com/Pao040883/my-dso-blog/tree/main/',
+            editUrl: `${gitRepositoryUrl}/tree/main/`,
             // Useful options to enforce blogging best practices
             onInlineTags: 'warn',
             onInlineAuthors: 'warn',
