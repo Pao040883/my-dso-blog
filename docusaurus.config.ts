@@ -99,22 +99,9 @@ const config: Config = {
               label: 'Tutorial',
               to: '/docs/guides/intro',
             },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
+              label: 'Projects',
+              to: '/docs/projects',
             },
           ],
         },
@@ -123,8 +110,12 @@ const config: Config = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
-            }
+              href: gitRepositoryUrl,
+            },
+            {
+              label: 'Template',
+              href: 'https://github.com/spmse/dev-blog-template',
+            },
           ],
         },
       ],
@@ -154,7 +145,7 @@ const config: Config = {
 if (blogEnabled) {
   const themeConfig = config.themeConfig as any;
   themeConfig.navbar.items.push({to: '/blog', label: 'Blog', position: 'left'});
-  themeConfig.footer.links[2].items.push({to: '/blog', label: 'Blog'});
+  themeConfig.footer.links[1].items.push({to: '/blog', label: 'Blog'});
 }
 
 export default config;
