@@ -82,6 +82,7 @@ Deploy-time values live in `example.env` (committed) and `.env` (git-ignored). T
 | `DEPLOYMENT_URL` | Production host, e.g. `https://pao040883.github.io`. |
 | `BASE_URL` | Path prefix served on that host. For a GitHub project page this must be `/<repo-name>/`. |
 | `GITHUB_ORG`, `GITHUB_PROJECT` | Used by Docusaurus for deploy metadata. |
+| `GIT_REPOSITORY_URL` | Used to derive the `editUrl` for docs and blog pages. |
 | `DEPLOYMENT_BRANCH` | Branch the workflow deploys from. |
 | `BLOG_ENABLED` | Set to `true` to render the blog section in the navbar and routes. |
 
