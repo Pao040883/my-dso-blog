@@ -1,4 +1,5 @@
 label: "Projects"
 link:
   type: "generated-index"
+  slug: "/projects"
 position: 2
